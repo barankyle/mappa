@@ -7,8 +7,12 @@ import { TouchInputs } from '@xrengine/engine/src/input/enums/InputEnums'
 import { BaseInput } from '@xrengine/engine/src/input/enums/BaseInput'
 import UserProfile from './UserProfile'
 import { EngineEvents } from '@xrengine/engine/src/ecs/classes/EngineEvents'
+import Layout from '@xrengine/client/src/components/Layout/Layout'
+import { useTranslation } from 'react-i18next'
+import { RealityPackReactProps } from '@xrengine/client/src/components/World/RealityPackReactProps'
 
-const MappaClientLayout = (props) => {
+const MappaClientLayout = (props: RealityPackReactProps) => {
+  const { t } = useTranslation()
   const [isUserProfileOpen, setShowUserProfile] = useState(true)
 
   useEffect(() => {
@@ -18,14 +22,20 @@ const MappaClientLayout = (props) => {
   }, [])
 
   // TODO: figure out how to inject 'theme'
-
-
   return (
-    <>
+    <Layout 
+      harmonyOpen={props.harmonyOpen}
+      setHarmonyOpen={props.setHarmonyOpen}
+      theme={theme}
+      hideVideo={true}
+      hideFullscreen={true}
+      pageTitle={t('location.locationName.pageTitle')}
+    >
       <UserProfile isUserProfileShowing={isUserProfileOpen} showHideProfile={setShowUserProfile} />
       <MapMediaIconsBox />
       <MapUserMenu showHideProfile={setShowUserProfile} />
-    </>
+      {props.canvas}
+    </Layout>
   )
 }
 
