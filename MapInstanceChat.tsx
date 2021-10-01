@@ -18,7 +18,7 @@ import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import { selectInstanceConnectionState } from '../../reducers/instanceConnection/selector'
+import { selectInstanceConnectionState } from '@xrengine/client/src/reducers/instanceConnection/selector'
 import styles from './MapInstanceChat.module.scss'
 
 const mapStateToProps = (state: any): any => {

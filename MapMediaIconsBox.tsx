@@ -4,7 +4,7 @@ import { Network } from '@xrengine/engine/src/networking/classes/Network'
 import { MediaStreams } from '@xrengine/engine/src/networking/systems/MediaStreamSystem'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { updateCamAudioState } from '../../reducers/mediastream/service'
+import { updateCamAudioState } from '@xrengine/client/src/reducers/mediastream/service'
 import {
   configureMediaTransports,
   createCamAudioProducer,
@@ -12,7 +12,7 @@ import {
   leave,
   pauseProducer,
   resumeProducer
-} from '../../transports/SocketWebRTCClientFunctions'
+} from '@xrengine/client/src/transports/SocketWebRTCClientFunctions'
 import { MicOff } from './icons/MicOff'
 import { MicOn } from './icons/MicOn'
 import styles from './MapMediaIconsBox.module.scss'
