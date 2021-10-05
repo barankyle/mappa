@@ -8,7 +8,6 @@ import { NavigateNext, NavigateBefore } from '@material-ui/icons'
 import Fab from '@material-ui/core/Fab'
 import { useTranslation } from 'react-i18next'
 import styles from './UserProfile.module.scss'
-import { selectCurrentScene } from '@xrengine/client-core/src/world/reducers/scenes/selector'
 import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
 import { AuthService } from '@xrengine/client-core/src/user/reducers/auth/AuthService'
 import { getAvatarURLForUser, Views } from '@xrengine/client-core/src/user/components/UserMenu/util'
@@ -23,12 +22,6 @@ interface Props {
   showUserProfile?: any
   isUserProfileShowing?: any
   showHideProfile?: Function
-}
-
-const mapStateToProps = (state: any): any => {
-  return {
-    currentScene: selectCurrentScene(state)
-  }
 }
 
 const UserProfileScreen = (props: Props) => {
@@ -282,4 +275,4 @@ const UserProfileScreen = (props: Props) => {
     </div>
   )
 }
-export default connect(mapStateToProps)(UserProfileScreen)
+export default UserProfileScreen

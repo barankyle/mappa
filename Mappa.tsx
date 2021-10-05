@@ -34,7 +34,6 @@ const MappaClientLayout = (props: RealityPackReactProps) => {
       <UserProfile isUserProfileShowing={isUserProfileOpen} showHideProfile={setShowUserProfile} />
       <MapMediaIconsBox />
       <MapUserMenu showHideProfile={setShowUserProfile} />
-      {props.canvas}
     </Layout>
   )
 }

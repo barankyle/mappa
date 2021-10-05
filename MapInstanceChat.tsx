@@ -5,13 +5,6 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import TextField from '@material-ui/core/TextField'
-import { selectChatState } from '@xrengine/client-core/src/social/reducers/chat/selector'
-import {
-  createMessage,
-  getInstanceChannel,
-  updateChatTarget,
-  updateMessageScrollInit
-} from '@xrengine/client-core/src/social/reducers/chat/service'
 import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
 import { User } from '@xrengine/common/src/interfaces/User'
 import classNames from 'classnames'
@@ -20,26 +13,20 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 import { selectInstanceConnectionState } from '@xrengine/client/src/reducers/instanceConnection/selector'
 import styles from './MapInstanceChat.module.scss'
+import { AlertActionType } from '@xrengine/client-core/src/common/reducers/alert/AlertActions'
+import { ChatService } from '@xrengine/client-core/src/social/reducers/chat/ChatService'
 
 const mapStateToProps = (state: any): any => {
   return {
-    chatState: selectChatState(state),
     instanceConnectionState: selectInstanceConnectionState(state)
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): any => ({
-  getInstanceChannel: bindActionCreators(getInstanceChannel, dispatch),
-  createMessage: bindActionCreators(createMessage, dispatch),
-  updateChatTarget: bindActionCreators(updateChatTarget, dispatch),
-  updateMessageScrollInit: bindActionCreators(updateMessageScrollInit, dispatch)
-})
+const mapDispatchToProps = (dispatch: Dispatch): any => ({})
 
 interface Props {
   chatState?: any
   instanceConnectionState?: any
-  getInstanceChannel?: any
-  createMessage?: any
   newMessageLabel?: string
   isOpen: boolean
   setUnreadMessages: (hasUnreadMessages: boolean) => void
@@ -49,8 +36,6 @@ const InstanceChat = (props: Props): any => {
   const {
     chatState,
     instanceConnectionState,
-    getInstanceChannel,
-    createMessage,
     newMessageLabel = 'Say something...',
     isOpen,
     setUnreadMessages
@@ -69,7 +54,7 @@ const InstanceChat = (props: Props): any => {
 
   useEffect(() => {
     if (instanceConnectionState.get('connected') === true && channelState.get('fetchingInstanceChannel') !== true) {
-      getInstanceChannel()
+      ChatService.getInstanceChannel()
     }
   }, [instanceConnectionState])
 
@@ -80,7 +65,7 @@ const InstanceChat = (props: Props): any => {
 
   const packageMessage = (): void => {
     if (composingMessage.length > 0) {
-      createMessage({
+      ChatService.createMessage({
         targetObjectId: user.instanceId.value,
         targetObjectType: 'instance',
         text: composingMessage

@@ -1,4 +1,3 @@
-import { selectLocationState } from '@xrengine/client-core/src/social/reducers/location/selector'
 import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
 import { Network } from '@xrengine/engine/src/networking/classes/Network'
 import { MediaStreams } from '@xrengine/engine/src/networking/systems/MediaStreamSystem'
@@ -16,10 +15,10 @@ import {
 import { MicOff } from './icons/MicOff'
 import { MicOn } from './icons/MicOn'
 import styles from './MapMediaIconsBox.module.scss'
+import { useLocationState } from '@xrengine/client-core/src/social/reducers/location/LocationState'
 
 const mapStateToProps = (state: any): any => {
   return {
-    locationState: selectLocationState(state),
     mediastream: state.get('mediastream')
   }
 }
@@ -27,14 +26,15 @@ const mapStateToProps = (state: any): any => {
 const mapDispatchToProps = (dispatch): any => ({})
 
 const MediaIconsBox = (props) => {
-  const { locationState, mediastream } = props
+  const { mediastream } = props
   const [hasAudioDevice, setHasAudioDevice] = useState(false)
 
   const user = useAuthState().user
-  const currentLocation = locationState.get('currentLocation').get('location')
+  const locationState = useLocationState()
+  const currentLocation = locationState.currentLocation.value
 
-  const instanceMediaChatEnabled = currentLocation.locationSettings
-    ? currentLocation.locationSettings.instanceMediaChatEnabled
+  const instanceMediaChatEnabled = currentLocation.location.location_settings
+    ? currentLocation.location.location_settings.instanceMediaChatEnabled
     : false
 
   const isCamAudioEnabled = mediastream.get('isCamAudioEnabled')
@@ -66,7 +66,7 @@ const MediaIconsBox = (props) => {
   }
   const handleMicClick = async () => {
     const partyId =
-      currentLocation?.locationSettings?.instanceMediaChatEnabled === true ? 'instance' : user.partyId.value
+      currentLocation?.location.location_settings?.instanceMediaChatEnabled === true ? 'instance' : user.partyId.value
     if (await configureMediaTransports(['audio'], partyId)) {
       if (MediaStreams.instance?.camAudioProducer == null) await createCamAudioProducer(partyId)
       else {
