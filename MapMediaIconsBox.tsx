@@ -3,7 +3,7 @@ import { Network } from '@xrengine/engine/src/networking/classes/Network'
 import { MediaStreams } from '@xrengine/engine/src/networking/systems/MediaStreamSystem'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { updateCamAudioState } from '@xrengine/client/src/reducers/mediastream/service'
+import {MediaStreamService} from '@xrengine/client/src/reducers/mediastream/MediaStreamService'
 import {
   configureMediaTransports,
   createCamAudioProducer,
@@ -37,7 +37,7 @@ const MediaIconsBox = (props) => {
     ? currentLocation.location.location_settings.instanceMediaChatEnabled
     : false
 
-  const isCamAudioEnabled = mediastream.get('isCamAudioEnabled')
+  const isCamAudioEnabled = mediastream.isCamAudioEnabled
 
   useEffect(() => {
     navigator.mediaDevices
@@ -75,7 +75,7 @@ const MediaIconsBox = (props) => {
         else await resumeProducer(MediaStreams.instance?.camAudioProducer)
         checkEndVideoChat()
       }
-      updateCamAudioState()
+      MediaStreamService.updateCamAudioState()
     }
     console.log('Mic Clicked=>' + isCamAudioEnabled)
   }
