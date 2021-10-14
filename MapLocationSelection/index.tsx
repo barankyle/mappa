@@ -2,9 +2,10 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import './mapbox-gl-geocoder-override.css'
 import React, { useState, useRef, useCallback } from 'react'
-import MapGL from 'react-map-gl'
+import MapGL, { MapEvent } from 'react-map-gl'
 import Geocoder from 'react-map-gl-geocoder'
 import styles from './MapLocation.module.scss'
+import { MapAction, mapReceptor } from '@xrengine/engine/src/map/MapReceptor'
 const mapboxApiKey = 'pk.eyJ1IjoibmF2ZGVlcHlhZGF2IiwiYSI6ImNrc2EzM2pnejBqaWUyeHA0bW8xaXFwaWEifQ.hIpiYzWrUer4F31GpCqoHA'
 const mapStyle = {
   width: '100%',
@@ -25,6 +26,7 @@ const MapView = (props: Props) => {
     markers: []
   })
 
+  const containerRef = useRef()
   const mapRef = useRef()
 
   const handleViewportChange = useCallback((newViewport) => {
@@ -49,10 +51,19 @@ const MapView = (props: Props) => {
     [handleViewportChange]
   )
 
+  const handleClickMap = useCallback((event: MapEvent) => {
+    mapReceptor(MapAction.setCenterPoint(event.lngLat))
+  }, [])
+
+  const handleGeocoderResult = useCallback((event: any) => {
+    const { center } = event.result
+    mapReceptor(MapAction.setCenterPoint(center))
+  }, [])
+
   const { viewport, selectedLocation, markers, selectedMarkerIndex } = state
   return (
     <div className={styles.locationSearch}>
-      <div className={styles.mapglView}>
+      <div className={styles.mapglView} ref={containerRef}>
         <MapGL
           ref={mapRef}
           mapboxApiAccessToken={mapboxApiKey}
@@ -60,17 +71,18 @@ const MapView = (props: Props) => {
           {...viewport}
           {...mapStyle}
           onViewportChange={handleViewportChange}
+          onClick={handleClickMap}
         >
-          {
-            <Geocoder
-              mapRef={mapRef}
-              mapboxApiAccessToken={mapboxApiKey}
-              onViewportChange={handleGeocoderViewportChange}
-              placeholder={'Where would you like to go?'}
-              position="top-left"
-              limit={3}
-            />
-          }
+          <Geocoder
+            mapRef={mapRef}
+            containerRef={containerRef}
+            mapboxApiAccessToken={mapboxApiKey}
+            onViewportChange={handleGeocoderViewportChange}
+            placeholder={'Where would you like to go?'}
+            position="top-left"
+            limit={3}
+            onResult={handleGeocoderResult}
+          />
         </MapGL>
       </div>
     </div>
