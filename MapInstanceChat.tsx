@@ -11,14 +11,14 @@ import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import { selectInstanceConnectionState } from '@xrengine/client/src/reducers/instanceConnection/selector'
+import { accessInstanceConnectionState } from '@xrengine/client/src/reducers/instanceConnection/InstanceConnectionState'
 import styles from './MapInstanceChat.module.scss'
 import { AlertActionType } from '@xrengine/client-core/src/common/reducers/alert/AlertActions'
 import { ChatService } from '@xrengine/client-core/src/social/reducers/chat/ChatService'
 
 const mapStateToProps = (state: any): any => {
   return {
-    instanceConnectionState: selectInstanceConnectionState(state)
+    instanceConnectionState: accessInstanceConnectionState().value
   }
 }
 

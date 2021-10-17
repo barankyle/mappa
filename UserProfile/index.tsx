@@ -1,4 +1,3 @@
-import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
@@ -15,7 +14,7 @@ import { Network } from '@xrengine/engine/src/networking/classes/Network'
 import { SearchIcon } from '../icons/Search'
 import { Close } from '../icons/Close'
 import { LazyImage } from '@xrengine/client-core/src/common/components/LazyImage'
-// import MapView from '../MapLocationSelection'
+import MapView from '../MapLocationSelection'
 
 interface Props {
   currentScene?: any
@@ -222,47 +221,9 @@ const UserProfileScreen = (props: Props) => {
           )}
         </div>
         {isEditProfile && renderAvatarList()}
-        {/*<Card className={styles['search-view']}>
-          <CardContent className={styles['search-box']} style={{ boxShadow: 'none' }}>
-            <TextField
-              className={styles.locationFieldContainer}
-              margin="normal"
-              multiline={false}
-              fullWidth
-              id="searchLocation"
-              label={'Where would you like to go?'}
-              name="searchLocation"
-              autoFocus
-              autoComplete="off"
-              value={searchLocation}
-              inputProps={{
-                maxLength: 1000,
-                'aria-label': 'naked'
-              }}
-              InputLabelProps={{ shrink: false }}
-              onChange={handleSearchLocationChange}
-              inputRef={searchLocationRef}
-              onClick={() => (searchLocationRef as any)?.current?.focus()}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && e.ctrlKey) {
-                  e.preventDefault()
-                  const selectionStart = (e.target as HTMLInputElement).selectionStart
-                  setSearchCursorPosition(selectionStart)
-                } else if (e.key === 'Enter' && !e.ctrlKey) {
-                  e.preventDefault()
-                  //setSearchCursorPosition(0)
-                }
-              }}
-            />
-            <div className={styles.searchIcon}>
-              <SearchIcon />
-            </div>
-          </CardContent>
-        </Card>
-*/}
-        {/* <div className={styles.mapView}>
+        <div className={styles.mapView}>
           <MapView />
-        </div> */}
+        </div>
         {!isEditProfile && (
           <div className={styles.profileButton}>
             {' '}
