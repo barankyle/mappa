@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import Loader from './Block'
 import { useTranslation } from 'react-i18next'
 import styles from './Loader.module.scss'
-import { GeneralStateList } from '@xrengine/client-core/src/common/reducers/app/AppActions'
-import { useAppState } from '@xrengine/client-core/src/common/reducers/app/AppState'
-import { selectCurrentScene } from '@xrengine/client-core/src/world/reducers/scenes/selector'
+import { GeneralStateList } from '@xrengine/client-core/src/common/state/AppActions'
+import { useAppState } from '@xrengine/client-core/src/common/state/AppState'
+import { accessSceneState } from '@xrengine/client-core/src/world/state/SceneState'
 interface Props {
   objectsToLoad?: number
   currentScene?: any
@@ -13,7 +13,7 @@ interface Props {
 
 const mapStateToProps = (state: any): any => {
   return {
-    currentScene: selectCurrentScene(state)
+    currentScene: accessSceneState()
   }
 }
 

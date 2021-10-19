@@ -1,9 +1,9 @@
-import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
+import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
 import { Network } from '@xrengine/engine/src/networking/classes/Network'
 import { MediaStreams } from '@xrengine/engine/src/networking/systems/MediaStreamSystem'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import {MediaStreamService} from '@xrengine/client/src/reducers/mediastream/MediaStreamService'
+import {MediaStreamService} from '@xrengine/client-core/src/media/state/MediaStreamService'
 import {
   configureMediaTransports,
   createCamAudioProducer,
@@ -11,11 +11,11 @@ import {
   leave,
   pauseProducer,
   resumeProducer
-} from '@xrengine/client/src/transports/SocketWebRTCClientFunctions'
+} from '@xrengine/client-core/src/transports/SocketWebRTCClientFunctions'
 import { MicOff } from './icons/MicOff'
 import { MicOn } from './icons/MicOn'
 import styles from './MapMediaIconsBox.module.scss'
-import { useLocationState } from '@xrengine/client-core/src/social/reducers/location/LocationState'
+import { useLocationState } from '@xrengine/client-core/src/social/state/LocationState'
 
 const mapStateToProps = (state: any): any => {
   return {

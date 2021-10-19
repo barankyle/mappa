@@ -15,7 +15,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { client } from '@xrengine/client-core/src/feathers'
-import { AlertAction } from '@xrengine/client-core/src/common/reducers/alert/AlertActions'
+import { AlertAction } from '@xrengine/client-core/src/common/state/AlertActions'
 import styles from '../MapUserMenu.module.scss'
 import { Views } from '../util'
 

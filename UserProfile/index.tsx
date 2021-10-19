@@ -7,8 +7,8 @@ import { NavigateNext, NavigateBefore } from '@material-ui/icons'
 import Fab from '@material-ui/core/Fab'
 import { useTranslation } from 'react-i18next'
 import styles from './UserProfile.module.scss'
-import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
-import { AuthService } from '@xrengine/client-core/src/user/reducers/auth/AuthService'
+import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
+import { AuthService } from '@xrengine/client-core/src/user/state/AuthService'
 import { getAvatarURLForUser, Views } from '@xrengine/client-core/src/user/components/UserMenu/util'
 import { Network } from '@xrengine/engine/src/networking/classes/Network'
 import { SearchIcon } from '../icons/Search'
@@ -98,7 +98,7 @@ const UserProfileScreen = (props: Props) => {
     const name = userName.trim()
     if (!name) return
     if (selfUser.name.value.trim() !== name) {
-      dispatch(AuthService.updateUsername(selfUser.id.value, name))
+      // dispatch(AuthService.updateUsername(selfUser.id.value, name))
     }
   }
 

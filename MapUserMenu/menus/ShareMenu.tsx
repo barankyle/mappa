@@ -6,9 +6,9 @@ import Button from '@material-ui/core/Button'
 import { Send, FileCopy } from '@material-ui/icons'
 import { isShareAvailable } from '@xrengine/engine/src/common/functions/DetectFeatures'
 import styles from '../MapUserMenu.module.scss'
-import { InviteService } from '@xrengine/client-core/src/social/reducers/invite/InviteService'
+import { InviteService } from '@xrengine/client-core/src/social/state/InviteService'
 import { useTranslation } from 'react-i18next'
-import { useInviteState } from '@xrengine/client-core/src/social/reducers/invite/InviteState'
+import { useInviteState } from '@xrengine/client-core/src/social/state/InviteState'
 
 interface Props {
   alertSuccess?: any

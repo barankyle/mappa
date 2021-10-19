@@ -14,8 +14,8 @@ import { Config, validateEmail, validatePhoneNumber } from '@xrengine/common/src
 import * as polyfill from 'credential-handler-polyfill'
 import styles from '../MapUserMenu.module.scss'
 import { useTranslation } from 'react-i18next'
-import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
-import { AuthService } from '@xrengine/client-core/src/user/reducers/auth/AuthService'
+import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
+import { AuthService } from '@xrengine/client-core/src/user/state/AuthService'
 import { getAvatarURLForUser } from '@xrengine/client-core/src/user/components/UserMenu/util'
 
 interface Props {
