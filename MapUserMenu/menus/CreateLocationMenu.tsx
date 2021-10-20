@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -18,6 +17,7 @@ import { client } from '@xrengine/client-core/src/feathers'
 import { AlertAction } from '@xrengine/client-core/src/common/state/AlertActions'
 import styles from '../MapUserMenu.module.scss'
 import { Views } from '../util'
+import { useDispatch } from '@xrengine/client-core/src/store'
 
 const CreateLocationMenu = ({ location, changeActiveMenu, updateLocationDetail }) => {
   const { t } = useTranslation()

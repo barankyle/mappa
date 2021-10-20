@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
 import Loader from './Block'
 import { useTranslation } from 'react-i18next'
 import styles from './Loader.module.scss'
 import { GeneralStateList } from '@xrengine/client-core/src/common/state/AppActions'
 import { useAppState } from '@xrengine/client-core/src/common/state/AppState'
-import { accessSceneState } from '@xrengine/client-core/src/world/state/SceneState'
+
 interface Props {
   objectsToLoad?: number
-  currentScene?: any
 }
 
-const mapStateToProps = (state: any): any => {
-  return {
-    currentScene: accessSceneState()
-  }
-}
-
-const LoadingScreen = (props: Props) => {
-  const { objectsToLoad, currentScene } = props
+export default (props: Props) => {
+  const { objectsToLoad } = props
   const onBoardingStep = useAppState().onBoardingStep
   const [showProgressBar, setShowProgressBar] = useState(true)
   const [loadingText, setLoadingText] = useState('')
@@ -72,4 +64,3 @@ const LoadingScreen = (props: Props) => {
     </div>
   )
 }
-export default connect(mapStateToProps)(LoadingScreen)

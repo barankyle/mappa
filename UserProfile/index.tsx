@@ -2,7 +2,6 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import React, { useEffect, useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
 import { NavigateNext, NavigateBefore } from '@material-ui/icons'
 import Fab from '@material-ui/core/Fab'
 import { useTranslation } from 'react-i18next'
@@ -15,6 +14,7 @@ import { SearchIcon } from '../icons/Search'
 import { Close } from '../icons/Close'
 import { LazyImage } from '@xrengine/client-core/src/common/components/LazyImage'
 import MapView from '../MapLocationSelection'
+import {useDispatch} from '@xrengine/client-core/src/store'
 
 interface Props {
   currentScene?: any

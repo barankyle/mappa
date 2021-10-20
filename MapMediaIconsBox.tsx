@@ -2,8 +2,8 @@ import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
 import { Network } from '@xrengine/engine/src/networking/classes/Network'
 import { MediaStreams } from '@xrengine/engine/src/networking/systems/MediaStreamSystem'
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
 import {MediaStreamService} from '@xrengine/client-core/src/media/state/MediaStreamService'
+import {useMediaStreamState} from '@xrengine/client-core/src/media/state/MediaStreamState'
 import {
   configureMediaTransports,
   createCamAudioProducer,
@@ -17,16 +17,8 @@ import { MicOn } from './icons/MicOn'
 import styles from './MapMediaIconsBox.module.scss'
 import { useLocationState } from '@xrengine/client-core/src/social/state/LocationState'
 
-const mapStateToProps = (state: any): any => {
-  return {
-    mediastream: state.get('mediastream')
-  }
-}
-
-const mapDispatchToProps = (dispatch): any => ({})
-
-const MediaIconsBox = (props) => {
-  const { mediastream } = props
+export default () => {
+  const mediastream = useMediaStreamState()
   const [hasAudioDevice, setHasAudioDevice] = useState(false)
 
   const user = useAuthState().user
@@ -37,7 +29,7 @@ const MediaIconsBox = (props) => {
     ? currentLocation.location.location_settings.instanceMediaChatEnabled
     : false
 
-  const isCamAudioEnabled = mediastream.isCamAudioEnabled
+  const isCamAudioEnabled = mediastream.isCamAudioEnabled.get()
 
   useEffect(() => {
     navigator.mediaDevices
@@ -98,4 +90,3 @@ const MediaIconsBox = (props) => {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MediaIconsBox)

@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { Check, Close, Create, GitHub, Send } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
 import { FacebookIcon } from '@xrengine/client-core/src/common/components/Icons/FacebookIcon'
 import { GoogleIcon } from '@xrengine/client-core/src/common/components/Icons/GoogleIcon'
 import { LinkedInIcon } from '@xrengine/client-core/src/common/components/Icons/LinkedInIcon'
@@ -17,6 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
 import { AuthService } from '@xrengine/client-core/src/user/state/AuthService'
 import { getAvatarURLForUser } from '@xrengine/client-core/src/user/components/UserMenu/util'
+import { useDispatch } from '@xrengine/client-core/src/store'
 
 interface Props {
   changeActiveMenu?: any
