@@ -5,47 +5,30 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import TextField from '@material-ui/core/TextField'
-import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
+import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
 import { User } from '@xrengine/common/src/interfaces/User'
 import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-import { accessInstanceConnectionState } from '@xrengine/client/src/reducers/instanceConnection/InstanceConnectionState'
+import { useInstanceConnectionState } from '@xrengine/client-core/src/common/state/InstanceConnectionState'
 import styles from './MapInstanceChat.module.scss'
-import { AlertActionType } from '@xrengine/client-core/src/common/reducers/alert/AlertActions'
-import { ChatService } from '@xrengine/client-core/src/social/reducers/chat/ChatService'
-
-const mapStateToProps = (state: any): any => {
-  return {
-    instanceConnectionState: accessInstanceConnectionState().value
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch): any => ({})
+import { ChatService } from '@xrengine/client-core/src/social/state/ChatService'
 
 interface Props {
   chatState?: any
-  instanceConnectionState?: any
   newMessageLabel?: string
   isOpen: boolean
   setUnreadMessages: (hasUnreadMessages: boolean) => void
 }
 
-const InstanceChat = (props: Props): any => {
-  const {
-    chatState,
-    instanceConnectionState,
-    newMessageLabel = 'Say something...',
-    isOpen,
-    setUnreadMessages
-  } = props
+export default (props: Props): any => {
+  const { chatState, newMessageLabel = 'Say something...', isOpen, setUnreadMessages } = props
 
   let activeChannel
   const messageRef = React.useRef<HTMLInputElement>()
   const user = useAuthState().user
   const channelState = chatState.get('channels')
   const channels = channelState.get('channels')
+  const instanceConnectionState = useInstanceConnectionState()
   const [composingMessage, setComposingMessage] = useState('')
   const activeChannelMatch = [...channels].find(([, channel]) => channel.channelType === 'instance')
   if (activeChannelMatch && activeChannelMatch.length > 0) {
@@ -53,7 +36,7 @@ const InstanceChat = (props: Props): any => {
   }
 
   useEffect(() => {
-    if (instanceConnectionState.get('connected') === true && channelState.get('fetchingInstanceChannel') !== true) {
+    if (instanceConnectionState.connected.get() === true && channelState.get('fetchingInstanceChannel') !== true) {
       ChatService.getInstanceChannel()
     }
   }, [instanceConnectionState])
@@ -228,5 +211,3 @@ const InstanceChat = (props: Props): any => {
     </>
   )
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(InstanceChat)

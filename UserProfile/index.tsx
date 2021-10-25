@@ -2,19 +2,19 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import React, { useEffect, useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
 import { NavigateNext, NavigateBefore } from '@material-ui/icons'
 import Fab from '@material-ui/core/Fab'
 import { useTranslation } from 'react-i18next'
 import styles from './UserProfile.module.scss'
-import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
-import { AuthService } from '@xrengine/client-core/src/user/reducers/auth/AuthService'
+import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
+import { AuthService } from '@xrengine/client-core/src/user/state/AuthService'
 import { getAvatarURLForUser, Views } from '@xrengine/client-core/src/user/components/UserMenu/util'
 import { Network } from '@xrengine/engine/src/networking/classes/Network'
 import { SearchIcon } from '../icons/Search'
 import { Close } from '../icons/Close'
 import { LazyImage } from '@xrengine/client-core/src/common/components/LazyImage'
 import MapView from '../MapLocationSelection'
+import {useDispatch} from '@xrengine/client-core/src/store'
 
 interface Props {
   currentScene?: any
@@ -98,7 +98,7 @@ const UserProfileScreen = (props: Props) => {
     const name = userName.trim()
     if (!name) return
     if (selfUser.name.value.trim() !== name) {
-      dispatch(AuthService.updateUsername(selfUser.id.value, name))
+      // dispatch(AuthService.updateUsername(selfUser.id.value, name))
     }
   }
 

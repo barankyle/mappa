@@ -1,13 +1,11 @@
 import Badge from '@material-ui/core/Badge'
-import { AlertService } from '@xrengine/client-core/src/common/reducers/alert/AlertService'
-import { useAuthState } from '@xrengine/client-core/src/user/reducers/auth/AuthState'
-import { AuthService } from '@xrengine/client-core/src/user/reducers/auth/AuthService'
+import { AlertService } from '@xrengine/client-core/src/common/state/AlertService'
+import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
+import { AuthService } from '@xrengine/client-core/src/user/state/AuthService'
 import { EngineEvents } from '@xrengine/engine/src/ecs/classes/EngineEvents'
 import { enableInput } from '@xrengine/engine/src/input/systems/ClientInputSystem'
 import { EngineRenderer } from '@xrengine/engine/src/renderer/WebGLRendererSystem'
 import React, { useEffect, useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
 import { DownArrow } from '../icons/DownArrow'
 import AvatarMenu from './menus/AvatarMenu'
 import AvatarSelectMenu from './menus/AvatarSelectMenu'
@@ -23,6 +21,7 @@ import { stopAutopilot } from '@xrengine/engine/src/navigation/functions/stopAut
 import { getComponent, hasComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
 import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AutoPilotComponent } from '@xrengine/engine/src/navigation/component/AutoPilotComponent'
+import { useDispatch } from '@xrengine/client-core/src/store'
 
 enum PanelState {
   CLOSE,
@@ -36,7 +35,7 @@ enum ActivePanel {
   CHAT
 }
 
-const UserMenu = (props: UserMenuProps): any => {
+export default (props: UserMenuProps): any => {
   const { uploadAvatarModel, enableSharing, hideLogin, showHideProfile } = props
   const dispatch = useDispatch()
   const menuPanel = {
@@ -331,5 +330,3 @@ const UserMenu = (props: UserMenuProps): any => {
     </>
   )
 }
-
-export default UserMenu
