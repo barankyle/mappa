@@ -1,4 +1,4 @@
-import Badge from '@material-ui/core/Badge'
+import Badge from '@mui/material/Badge'
 import { AlertService } from '@xrengine/client-core/src/common/state/AlertService'
 import { useAuthState } from '@xrengine/client-core/src/user/state/AuthState'
 import { AuthService } from '@xrengine/client-core/src/user/state/AuthService'

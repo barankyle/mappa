@@ -20,8 +20,8 @@ import { useDispatch } from '@xrengine/client-core/src/store'
 import UserProfile from './UserProfile'
 import MapMediaIconsBox from './MapMediaIconsBox'
 import MapUserMenu from './MapUserMenu'
-import Button from '@material-ui/core/Button'
-import Snackbar from '@material-ui/core/Snackbar'
+import Button from '@mui/material/Button'
+import Snackbar from '@mui/material/Snackbar'
 import GameServerWarnings from '@xrengine/client/src/components/World/GameServerWarnings'
 
 const goHome = () => (window.location.href = window.location.origin)
